@@ -11,14 +11,14 @@ public class Who extends HttpServlet
         resp.setContentType("text/html");
         var pw = resp.getWriter();
         var sess = req.getSession();
-        var name = sess.getAttribute("name");
+        var name = sess.getAttribute("username");
         pw.printf("<!DOCTYPE HTML>\n");
         pw.printf("<HTML><head><meta charset=\"utf-8\"></head>");
         pw.printf("<body>");
         if( name == null ){
             pw.printf("Don't know who you are");
         } else {
-            pw.printf("You are "+name);
+            pw.printf("You are "+name); // name is actually username
         }
         pw.printf("</body></html>");
     }

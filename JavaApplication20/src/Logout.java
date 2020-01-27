@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Logout extends HttpServlet
 {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        req.getSession().removeAttribute("name");
+        req.getSession().removeAttribute("username");
         resp.setContentType("text/plain");
         var pw = resp.getWriter();
         pw.printf("Logged out");
