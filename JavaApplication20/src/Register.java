@@ -21,18 +21,21 @@ public class Register extends HttpServlet{
         req.getSession().removeAttribute("name");
         resp.setContentType("text/plain");
         var pw = resp.getWriter();
-        var name = req.getParameter("name");
         var username = req.getParameter("username");
         var password = req.getParameter("password");
-        if (name == null || username == null || password == null) {
+        if (username == null || password == null) {
             pw.println("All entries not provided");
         } else {
-            AccountManager.register(username, name, password); 
-            pw.println("Username:"+username);
-            pw.println("Name:"+name);
-            pw.println("Password:"+password);
-            pw.println("Registered!!!!!"); 
-        }
+            if(AccountManager.addUser(username, password)){ 
+//                pw.println("Username:"+username);
+//                pw.println("Password:"+password);
+                pw.println("True"); 
+            }
+            else{
+                //pw.println("Could not register account");
+                pw.println("False");
+            }
+        }    
     }
 
 }
