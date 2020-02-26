@@ -88,16 +88,21 @@ public class MainNGTest {
         var response = fetch("/srv/register?username=JFK&password=Marilyn");
         assert(response.contains("False"));
     }
+    
+    
     @Test 
     public void Login() {
         fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
-        /*var response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
+        var response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
         assert(response.contains("JFK@mafia.com"));
-        response = fetch("/srv/login?");
+    }
+    @Test 
+    public void LoginNoArgs() {
+        fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
+        var response = fetch("/srv/login?");
         assert(response.contains("Null"));
-        response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
-        assert(response.contains("Null"));*/
-   }
+    }
+
 
     
 }
