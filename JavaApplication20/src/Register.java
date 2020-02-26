@@ -18,17 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns={"/register"})
 public class Register extends HttpServlet{
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-        req.getSession().removeAttribute("name");
         resp.setContentType("text/plain");
         var pw = resp.getWriter();
         var username = req.getParameter("username");
         var password = req.getParameter("password");
         if (username == null || password == null) {
-            pw.println("All entries not provided");
+            pw.println("Null");
         } else {
-            if(AccountManager.addUser(username, password)){ 
-//                pw.println("Username:"+username);
-//                pw.println("Password:"+password);
+            if( AccountManager.addUser(username, password) ){ 
+                //pw.println("Username:"+username);
+                //pw.println("Password:"+password);
                 pw.println("True"); 
             }
             else{

@@ -10,7 +10,7 @@ public class Main {
     }
     
      public static void startOrStopJetty(boolean startIt){
-        String jettyHome="../../jetty";
+        String jettyHome="../../../jetty";
         if( !new File(jettyHome).exists()) {
             System.out.println("Cannot find Jetty!");
             return;

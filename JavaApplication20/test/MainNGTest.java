@@ -44,6 +44,10 @@ public class MainNGTest {
     public static void teardown() {
         Main.startOrStopJetty(false);
     }
+    @BeforeMethod
+    public void Clear(){
+        fetch("/srv/clear");
+    }
         
     static String fetch(String... allurls) {
         try {
@@ -63,22 +67,37 @@ public class MainNGTest {
     }
     
     
-    /**
-     * Test of main method, of class Main.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        Main.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
-    
     @Test
     public void testRegister(){
-        var response = fetch("srv/register?username=JFK@mafia.com&pasword=Marilyn");
-        assertEquals("True",response);
+        var response = fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
+        assert(response.contains("True"));
     }
+    @Test
+    public void testRegisterNoArgs(){
+        var response = fetch("/srv/register?");
+        assert(response.contains("Null"));
+    }
+    @Test
+    public void testRegisterExisting(){
+        fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
+        var response = fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
+        assert(response.contains("False"));
+    }
+    @Test
+    public void testRegisterBadEmail(){
+        var response = fetch("/srv/register?username=JFK&password=Marilyn");
+        assert(response.contains("False"));
+    }
+    @Test 
+    public void Login() {
+        fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
+        /*var response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
+        assert(response.contains("JFK@mafia.com"));
+        response = fetch("/srv/login?");
+        assert(response.contains("Null"));
+        response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
+        assert(response.contains("Null"));*/
+   }
+
     
 }

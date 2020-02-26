@@ -14,15 +14,15 @@ public class Login extends HttpServlet
         var username = req.getParameter("username");
         var password = req.getParameter("password");
         if( password == null || username == null ){
-            pw.printf("Not all enteries are provided");
+            pw.printf("Null");
         } else {
             if (AccountManager.login(username,password)){
                 var sess = req.getSession();
                 sess.setAttribute("username", username );
-                pw.printf("Logged in as "+username);
+                pw.printf(username);
             }
             else{
-                pw.println("incorrect username or password");
+                pw.println("Null");
             }
         }
     }
