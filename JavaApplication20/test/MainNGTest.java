@@ -130,6 +130,24 @@ public class MainNGTest {
         var response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
         assert(response.contains("False"));
     }
-
     
+    // ##### WHO / HOME PAGE #######
+    // tests who page when you are logged in
+    @Test
+    public void who(){  
+        fetch("/srv/register?username=JimmyHoffa@mafia.com&password=IDEAD");
+        fetch("/srv/login?username=JimmyHoffa@mafia.com&password=IDEAD");
+        var response = fetch("/srv/who");   // who uses the session to see if youre logged in
+        assert(response.contains("True"));
+        
+    }
+    
+    // tests who page when you are not logged in
+    @Test
+    public void whoNotLoggedIn(){  
+        fetch("/srv/register?username=JimmyHoffa@mafia.com&password=IDEAD");
+        var response = fetch("/srv/who");   // who uses the session to see if youre logged in
+        assert(response.contains("False"));
+        
+    }
 }

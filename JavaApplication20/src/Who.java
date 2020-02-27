@@ -17,7 +17,9 @@ public class Who extends HttpServlet
         pw.printf("<body>");
         if( name == null ){
             pw.printf("Don't know who you are");
+            pw.printf("False");
         } else {
+            pw.printf("True");
             pw.printf("You are "+name); // name is actually username
         }
         pw.printf("</body></html>");
