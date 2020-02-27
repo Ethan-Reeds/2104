@@ -67,22 +67,29 @@ public class MainNGTest {
     }
     
     // ############ REGISTER ################### 
+    // standard login all entries provided
     @Test
     public void testRegister(){
         var response = fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
         assert(response.contains("True"));
     }
+    
+    // trying to register withoug using any arguments
     @Test
     public void testRegisterNoArgs(){
         var response = fetch("/srv/register?");
         assert(response.contains("Null"));
     }
+    
+    // trying to register an existing account
     @Test
     public void testRegisterExisting(){
         fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
         var response = fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
         assert(response.contains("False"));
     }
+    
+    // trying to register with an email that is not "syntacticaly" an email
     @Test
     public void testRegisterBadEmail(){
         var response = fetch("/srv/register?username=JFK&password=Marilyn");
@@ -90,24 +97,31 @@ public class MainNGTest {
     }
     
     // ############# LOGIN ###############
+    // standard login all entries provided
     @Test 
-    public void Login() {
+    public void Login() {   
         fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
         var response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
         assert(response.contains("True"));
     }
+    
+    // login but with no arguments
     @Test 
     public void LoginNoArgs() {
         fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
         var response = fetch("/srv/login?");
         assert(response.contains("Null"));
     }
+    
+    // login but using the wrong password
     @Test 
     public void LoginWrongPassword() {
         fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
         var response = fetch("/srv/login?username=JFK@mafia.com&password=wrongPassword");
         assert(response.contains("False"));
     }
+    
+    // trying to log into a seperate account or loggin into a different account without logging out
     @Test
     public void LoginAnotherAccount(){
         fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
