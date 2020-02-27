@@ -16,6 +16,7 @@ public class Account {
     protected static int nextID = 1000;
     protected boolean isAdmin;  // default is false you can set it to true
     protected byte[] avatar;    // default is to NULL;
+    protected boolean loggedIn;
     
     public Account(String usrName, String pswrd){
         username = usrName;        // check for xxxxx@xxxxx
@@ -27,6 +28,12 @@ public class Account {
     }    
     public String getUsername(){
         return username;
+    }
+    public boolean getLoggedIn(){
+        return loggedIn;
+    }
+    public void setLoggedIn(boolean status){
+        loggedIn = status;
     }
     public String getPassword(){
         return password;

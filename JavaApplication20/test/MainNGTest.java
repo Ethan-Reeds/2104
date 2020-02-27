@@ -66,7 +66,7 @@ public class MainNGTest {
         }
     }
     
-    
+    // ############ REGISTER ################### 
     @Test
     public void testRegister(){
         var response = fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
@@ -89,12 +89,12 @@ public class MainNGTest {
         assert(response.contains("False"));
     }
     
-    
+    // ############# LOGIN ###############
     @Test 
     public void Login() {
         fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
         var response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
-        assert(response.contains("JFK@mafia.com"));
+        assert(response.contains("True"));
     }
     @Test 
     public void LoginNoArgs() {
@@ -102,7 +102,20 @@ public class MainNGTest {
         var response = fetch("/srv/login?");
         assert(response.contains("Null"));
     }
-
+    @Test 
+    public void LoginWrongPassword() {
+        fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
+        var response = fetch("/srv/login?username=JFK@mafia.com&password=wrongPassword");
+        assert(response.contains("False"));
+    }
+    @Test
+    public void LoginAnotherAccount(){
+        fetch("/srv/register?username=JFK@mafia.com&password=Marilyn");
+        fetch("/srv/register?username=JimmyHoffa@mafia.com&password=IDEAD");
+        fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
+        var response = fetch("/srv/login?username=JFK@mafia.com&password=Marilyn");
+        assert(response.contains("False"));
+    }
 
     
 }

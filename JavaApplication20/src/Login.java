@@ -10,19 +10,23 @@ public class Login extends HttpServlet
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         resp.setContentType("text/plain");
         var pw = resp.getWriter();
+        var sess = req.getSession();
         //var name = req.getParameter("name");
         var username = req.getParameter("username");
         var password = req.getParameter("password");
         if( password == null || username == null ){
             pw.printf("Null");
         } else {
-            if (AccountManager.login(username,password)){
-                var sess = req.getSession();
+            
+            if (sess.getAttribute(username) != null){
+                pw.printf("False");
+            }
+            else if (AccountManager.login(username,password)){
                 sess.setAttribute("username", username );
-                pw.printf(username);
+                pw.printf("True");
             }
             else{
-                pw.println("Null");
+                pw.println("False");
             }
         }
     }

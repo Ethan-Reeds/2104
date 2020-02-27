@@ -19,13 +19,26 @@ public class AccountManager {
     
     static AccountManager instance = new AccountManager();  // instance used for the integreation testing, called in /clear servlet
     
+    
     public static boolean login(String username, String password) {
-    //this.loggedIn = true;
         if (accountList.isEmpty() || !accountList.containsKey(username)){
             return false;
         } 
+        if (!accountList.get(username).getLoggedIn()){
+            accountList.get(username).setLoggedIn(true);
+        }
+        else{
+            return false;
+        }
+        
         return (accountList.get(username).getPassword().equals(password));
     }
+    
+    public static boolean logout(String username, String password){
+        if ( accountList.get(username).getLoggedIn() == true )
+            accountList.get(username).setLoggedIn(false);
+        return true;
+    } 
     
     public static boolean verifyUser(String username, String password){
         return (accountList.get(username) != null);
