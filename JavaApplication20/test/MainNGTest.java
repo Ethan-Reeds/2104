@@ -150,4 +150,40 @@ public class MainNGTest {
         assert(response.contains("False"));
         
     }
+    
+    // ##### Logout #######
+    // tests when correct conditions have been met
+    @Test
+    public void Logout(){
+        fetch("/srv/register?username=JimmyHoffa@mafia.com&password=IDEAD");
+        fetch("/srv/login?username=JimmyHoffa@mafia.com&password=IDEAD");
+        var response = fetch("/srv/logout?username=JimmyHoffa@mafia.com");
+        assert(response.contains("True"));    
+    }
+    
+    // tests when you are not logged in
+    @Test
+    public void LogoutNotLoggedIn(){
+        fetch("/srv/register?username=JimmyHoffa@mafia.com&password=IDEAD");
+        var response = fetch("/srv/logout?username=JimmyHoffa@mafia.com");
+        assert(response.contains("False"));    
+    }
+    
+    // tests when no parameters are given and user is logged in
+    @Test
+    public void LogoutNoUsrNameLoggedIn(){
+        fetch("/srv/register?username=JimmyHoffa@mafia.com&password=IDEAD");
+        //fetch("/srv/login?username=JimmyHoffa@mafia.com&password=IDEAD");
+        var response = fetch("/srv/logout");
+        assert(response.contains("False"));
+    }
+    
+    // tests when no parameters are given and no one is logged in
+    @Test
+    public void LogoutNoUsrNameNotLoggedIn(){
+        fetch("/srv/register?username=JimmyHoffa@mafia.com&password=IDEAD");
+        fetch("/srv/login?username=JimmyHoffa@mafia.com&password=IDEAD");
+        var response = fetch("/srv/logout");
+        assert(response.contains("False"));
+    }
 }

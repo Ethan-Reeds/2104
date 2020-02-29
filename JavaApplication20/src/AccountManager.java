@@ -34,10 +34,12 @@ public class AccountManager {
         return (accountList.get(username).getPassword().equals(password));
     }
     
-    public static boolean logout(String username, String password){
-        if ( accountList.get(username).getLoggedIn() == true )
+    public static boolean logout(String username){
+        if ( accountList.get(username).getLoggedIn() == true ){
             accountList.get(username).setLoggedIn(false);
-        return true;
+            return true;
+        }
+        return false;
     } 
     
     public static boolean verifyUser(String username, String password){

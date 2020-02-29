@@ -14,6 +14,7 @@ public class Login extends HttpServlet
         //var name = req.getParameter("name");
         var username = req.getParameter("username");
         var password = req.getParameter("password");
+        req.getSession().removeAttribute("username");
         if( password == null || username == null ){
             pw.printf("Null");
         } else {
